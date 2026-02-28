@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://hl5ywdaifms2"]
 
 [ext_resource type="Script" uid="uid://udlmr5chy0m8" path="res://assets/scripts/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://cbvkvypcwogti" path="res://assets/textures/male_hero.png" id="2_s027a"]
+[ext_resource type="Texture2D" uid="uid://cbvkvypcwogti" path="res://assets/textures/male_hero.png" id="2_14505"]
+[ext_resource type="Script" uid="uid://17f5aywv6xup" path="res://addons/goutte.animated_shape_2d/animated_shape_2d.gd" id="3_8sknh"]
+[ext_resource type="Script" uid="uid://bx4aow01fxgeh" path="res://addons/goutte.animated_shape_2d/shape_frame_2d.gd" id="4_0gfpk"]
+[ext_resource type="Script" uid="uid://dqqi0hqosfvuw" path="res://addons/goutte.animated_shape_2d/shape_frames_2d.gd" id="5_0hrit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
 size = Vector2(20, 37)
