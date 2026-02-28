@@ -2,6 +2,8 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+
 const SPEED = 100.0
 const SPEED_IN_JUMP = 10.0
 const JUMP_VELOCITY = -200.0
@@ -85,6 +87,7 @@ func check_direction(direction: float, delta: float):
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			if jumping == false and not is_attacking and not sliding:
 				animated_sprite_2d.play("idle")
+				animation_player.play("idle")
 
 func check_slide(direction, delta):
 	if is_on_floor() and not sliding:
