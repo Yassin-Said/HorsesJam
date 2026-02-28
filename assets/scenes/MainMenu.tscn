@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://dfctlehlp2bba"]
+
+[ext_resource type="Script" uid="uid://cr2ga1j67fl4f" path="res://assets/scripts/MainMenu.gd" id="1_t6dbj"]
+[ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="2_u804d"]
+
+[sub_resource type="Animation" id="Animation_t6dbj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/VBoxContainer/Play:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_u804d"]
+resource_name = "buttons_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/VBoxContainer/Play:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c1eu8"]
+_data = {
+&"RESET": SubResource("Animation_t6dbj"),
+&"buttons_in": SubResource("Animation_u804d")
+}
+
+[node name="MainMenu" type="Node2D" unique_id=809176291]
+script = ExtResource("1_t6dbj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=312630778]
+offset_right = 1164.0
+offset_bottom = 672.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="Title" type="Label" parent="ColorRect" unique_id=205640786]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -78.0
+offset_top = 100.0
+offset_right = 78.0
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 80
+text = "The unknown hero in the cavern"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1256963495]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 49.0
+offset_top = -250.0
+offset_right = 349.0
+offset_bottom = -79.0
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="ColorRect/VBoxContainer" unique_id=1154131124]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 35
+text = "Play"
+
+[node name="Settings" type="Button" parent="ColorRect/VBoxContainer" unique_id=1593058471]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Quit")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 34
+text = "Settings"
+
+[node name="Quit" type="Button" parent="ColorRect/VBoxContainer" unique_id=104969647]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Play")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 35
+text = "Quit"
+
+[node name="Warning" type="Control" parent="ColorRect" unique_id=179727075]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/Warning" unique_id=2022420640]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -283.0
+offset_top = -158.5
+offset_right = 283.0
+offset_bottom = 158.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6431373)
+
+[node name="Label" type="Label" parent="ColorRect/Warning" unique_id=987007948]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -11.5
+offset_right = 144.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 30
+text = "No, you have to use the keyboard"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1520993781]
+libraries/ = SubResource("AnimationLibrary_c1eu8")
+
+[connection signal="focus_entered" from="ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="focus_entered" from="ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="focus_entered" from="ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
