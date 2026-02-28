@@ -6,6 +6,10 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ypxwc"]
 texture = ExtResource("1_betll")
+texture_region_size = Vector2i(16, 16)
+margins = Vector2i(0, 0)
+separation = Vector2i(0, 0)
+
 1:1/0 = 0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0 = 0
