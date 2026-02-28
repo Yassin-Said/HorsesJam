@@ -1,92 +1,101 @@
 [gd_scene format=3 uid="uid://hl5ywdaifms2"]
 
 [ext_resource type="Script" uid="uid://udlmr5chy0m8" path="res://assets/scripts/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://cbvkvypcwogti" path="res://assets/textures/male_hero.png" id="2_14505"]
-[ext_resource type="Script" uid="uid://17f5aywv6xup" path="res://addons/goutte.animated_shape_2d/animated_shape_2d.gd" id="3_8sknh"]
-[ext_resource type="Script" uid="uid://bx4aow01fxgeh" path="res://addons/goutte.animated_shape_2d/shape_frame_2d.gd" id="4_0gfpk"]
-[ext_resource type="Script" uid="uid://dqqi0hqosfvuw" path="res://addons/goutte.animated_shape_2d/shape_frames_2d.gd" id="5_0hrit"]
+[ext_resource type="Texture2D" uid="uid://cbvkvypcwogti" path="res://assets/textures/male_hero.png" id="2_s027a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
 size = Vector2(20, 37)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd8hh"]
+atlas = ExtResource("2_s027a")
+region = Rect2(0, 2176, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yitjv"]
+atlas = ExtResource("2_s027a")
+region = Rect2(128, 2176, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnek2"]
+atlas = ExtResource("2_s027a")
+region = Rect2(256, 2176, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_14505"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(0, 1408, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wcc8"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(128, 1408, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8sknh"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(256, 1408, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gfpk"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(384, 1408, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hrit"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(0, 1536, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o5c66"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(128, 1536, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tc801"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(256, 1536, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60g6h"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrrj1"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6vv5"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(256, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nh07x"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(384, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00pic"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bskb"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(640, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dmvh"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(768, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ratp2"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(896, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84enu"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(1024, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cd4ww"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(1152, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqyl7"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(0, 1280, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wf17w"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(128, 1280, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_msj1n"]
-atlas = ExtResource("2_14505")
+atlas = ExtResource("2_s027a")
 region = Rect2(256, 1280, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktpxd"]
@@ -175,6 +184,20 @@ region = Rect2(384, 1664, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_00pic"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jd8hh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yitjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnek2")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_14505")
@@ -334,6 +357,9 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ike5y"]
+size = Vector2(34, 38)
+
 [node name="Player" type="Node2D" unique_id=2067248331]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137258958]
@@ -346,10 +372,16 @@ shape = SubResource("RectangleShape2D_s027a")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=672851028]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_00pic")
-animation = &"wall_jump"
+animation = &"attack"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1335801446]
 visible = false
 texture_filter = 1
+
+[node name="AttackArea" type="Area2D" parent="CharacterBody2D" unique_id=687078680]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/AttackArea" unique_id=1964558785]
+position = Vector2(33, -3)
+shape = SubResource("RectangleShape2D_ike5y")
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
