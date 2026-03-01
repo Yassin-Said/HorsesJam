@@ -340,11 +340,6 @@ animations = [{
 "name": &"jump",
 "speed": 15.0
 }, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jpuse")
@@ -698,7 +693,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_0hrit"]
 resource_name = "dash"
-length = 0.33333334
+length = 0.333
 step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -858,6 +853,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_60g6h"]
 resource_name = "fall_loop"
 length = 0.2
+loop_mode = 1
 step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1229,6 +1225,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_4wcc8"]
 resource_name = "attack"
 length = 0.26666668
+loop_mode = 1
 step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1302,19 +1299,20 @@ _data = {
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137258958]
 script = ExtResource("1_onrkg")
 
+[node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1013587023]
+target_position = Vector2(39, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=590546362]
 position = Vector2(-1, -2.5000005)
 shape = SubResource("RectangleShape2D_s027a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=672851028]
-visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_00pic")
-animation = &"new_animation"
-frame = 4
-frame_progress = 1.0
+animation = &"attack"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1335801446]
+visible = false
 texture_filter = 1
 texture = ExtResource("3_14505")
 hframes = 23
@@ -1330,3 +1328,4 @@ shape = SubResource("RectangleShape2D_ike5y")
 libraries/ = SubResource("AnimationLibrary_8sknh")
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="CharacterBody2D" method="_on_animation_player_animation_finished"]
