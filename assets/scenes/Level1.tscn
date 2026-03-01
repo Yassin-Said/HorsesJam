@@ -338,6 +338,7 @@ sources/0 = SubResource("TileSetAtlasSource_6o4a5")
 
 [node name="Level1" type="Node2D" unique_id=48876454]
 texture_filter = 1
+scale = Vector2(3, 3)
 script = ExtResource("1_o4lud")
 
 [node name="background" type="TileMapLayer" parent="." unique_id=63121850]
