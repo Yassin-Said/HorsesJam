@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var player_sprite: Sprite2D = $Sprite2D
 @onready var player_ui: Control = $"../PlayerUi"
 @onready var player: Node2D = $".."
+@onready var area_2d: Area2D = $Area2D
 
 const SPEED = 100.0
 const SPEED_IN_JUMP = 70.0
@@ -262,5 +263,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		is_alive = true
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	is_alive = false
+	animation_player.play("death")
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
 	is_alive = false
 	animation_player.play("death")

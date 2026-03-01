@@ -875,8 +875,6 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=672851028]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_00pic")
-animation = &"dash_up"
-frame = 9
 animation = &"hit"
 frame = 5
 frame_progress = 1.0
@@ -895,7 +893,6 @@ position = Vector2(33, -3)
 shape = SubResource("RectangleShape2D_ike5y")
 disabled = true
 
-[node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
 [node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=518359165]
 collision_layer = 2
 collision_mask = 2
@@ -904,5 +901,8 @@ collision_mask = 2
 position = Vector2(-1, -2.5)
 shape = SubResource("RectangleShape2D_4wcc8")
 
+[node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
+
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
