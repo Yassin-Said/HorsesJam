@@ -3,9 +3,13 @@ var speed = 10
 var gravity = 10
 var detectPlayer = false
 var player: Node2D = null
-var attackCooldown = 2
+var attackCooldown = 3
 var playerInRange
 var canAttack = true
+var is_attacking = false
+var target_in_area := false
+
+@onready var attack_area_right: Area2D = $AttackAreaRight
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,11 +21,16 @@ func _ready() -> void:
 	#$AttackAreaLeft.body_exited.connect(_on_attack_entered)
 
 func _physics_process(delta: float) -> void:
-
+	var distance = global_position.distance_to($"../Player".get_child(0).global_position)
+	
+	attack_player()
+	
+	if is_attacking or distance < 35:
+		return
 	if velocity.x > 1 or velocity.x < -1:
-		$AnimatedSprite2D.animation = "walk"
+		$AnimatedSprite2D.play("walk")
 	else:
-		$AnimatedSprite2D.animation = "idle"
+		$AnimatedSprite2D.play("idle")
 
 	if !is_on_floor():
 		velocity.y += gravity
@@ -37,7 +46,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
 func _process(delta: float) -> void:
 	pass
 
@@ -51,25 +59,6 @@ func _on_body_exited(body):
 		detectPlayer = false
 		player = null
 
-func canAttackPlayer():
-	var distance = global_position.distance_to($"../Player".get_child(0).global_position)
-
-	print(distance)
-	if distance < 200:
-		print("I have you know")
-		if !canAttack:
-			return
-		canAttack = false
-		print("yah")
-		$AnimatedSprite2D.animation = "attack"
-		
-		await get_tree().create_timer(attackCooldown).timeout 
-		canAttack = true
-
-
-
-
-
 #func _on_attack_entered(body):
 	#if body.name == "TestPlayer":
 		#playerInRange = true
@@ -77,3 +66,32 @@ func canAttackPlayer():
 #func _on_attack_exited(body):
 	#if body.name == "TestPlayer":
 		#playerInRange = false
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "attack":
+		$AnimatedSprite2D.animation = "idle"
+		is_attacking = false
+
+func attack_player():
+	if target_in_area:
+		if !canAttack:
+			return
+		canAttack = false
+		is_attacking = true
+		$AnimatedSprite2D.play("attack")
+	
+		await get_tree().create_timer(attackCooldown).timeout 
+		canAttack = true
+
+func _on_attack_area_right_body_entered(body: Node2D) -> void:
+	target_in_area = true
+
+func _on_attack_area_left_body_entered(body: Node2D) -> void:
+	target_in_area = true
+
+func _on_attack_area_right_body_exited(body: Node2D) -> void:
+	target_in_area = false
+
+func _on_attack_area_left_body_exited(body: Node2D) -> void:
+	target_in_area = false
