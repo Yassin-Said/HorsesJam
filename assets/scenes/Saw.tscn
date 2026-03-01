@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://chyfp7qo0n5ev"]
+
+[ext_resource type="Script" uid="uid://cs41mb4i2m8wf" path="res://assets/scripts/Saw.gd" id="1_r6ppc"]
+[ext_resource type="Texture2D" uid="uid://c157ltlh8bub6" path="res://assets/textures/Dungeon Tile Set.png" id="2_b86hk"]
+
+[node name="SawUp" type="Node2D" unique_id=1130752476]
+script = ExtResource("1_r6ppc")
+
+[node name="SawSprite" type="Sprite2D" parent="." unique_id=1199578159]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("2_b86hk")
+region_enabled = true
+region_rect = Rect2(160, 240, 48, 16)
+
+[node name="SawArea" type="Area2D" parent="." unique_id=213520471]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SawArea" unique_id=1106213309]
+position = Vector2(1, -5)
+polygon = PackedVector2Array(-24, 5, -21, -1, -14, -8, -1, -12, 12, -8, 19, -1, 22, 5)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ct52a16340h63"]
 
 [ext_resource type="Script" uid="uid://dvqdnm4gy0xe6" path="res://assets/scripts/PlayerUi.gd" id="1_tk7m3"]
+[ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="2_d1603"]
 [ext_resource type="Texture2D" uid="uid://ch4hulgomph20" path="res://icon.svg" id="2_pxrjx"]
 
 [node name="PlayerUi" type="Control" unique_id=24420542]
@@ -31,6 +32,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 86.0
 grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_d1603")
+theme_override_fonts/bold_font = ExtResource("2_d1603")
+theme_override_fonts/bold_italics_font = ExtResource("2_d1603")
+theme_override_fonts/italics_font = ExtResource("2_d1603")
+theme_override_fonts/mono_font = ExtResource("2_d1603")
 theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 30
 theme_override_font_sizes/bold_italics_font_size = 30
@@ -47,6 +53,11 @@ offset_left = 620.0
 offset_top = -8.0
 offset_right = 972.0
 offset_bottom = 78.0
+theme_override_fonts/normal_font = ExtResource("2_d1603")
+theme_override_fonts/bold_font = ExtResource("2_d1603")
+theme_override_fonts/bold_italics_font = ExtResource("2_d1603")
+theme_override_fonts/italics_font = ExtResource("2_d1603")
+theme_override_fonts/mono_font = ExtResource("2_d1603")
 theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 20
 theme_override_font_sizes/bold_italics_font_size = 20
@@ -58,10 +69,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DashContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1719378571]
-offset_left = 20.0
-offset_top = 783.0
-offset_right = 520.0
-offset_bottom = 1013.0
+offset_left = 44.0
+offset_top = 56.0
+offset_right = 509.0
+offset_bottom = 211.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=320550991]
 layout_mode = 2

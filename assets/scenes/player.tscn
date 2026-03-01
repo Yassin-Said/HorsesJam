@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbvkvypcwogti" path="res://assets/textures/male_hero.png" id="2_s027a"]
 [ext_resource type="Texture2D" uid="uid://cr2nbqhtk2y2d" path="res://assets/textures/male_hero_new_sheets.png" id="3_14505"]
 [ext_resource type="PackedScene" uid="uid://ct52a16340h63" path="res://assets/scenes/PlayerUi.tscn" id="4_4wcc8"]
+[ext_resource type="PackedScene" uid="uid://cfy7ys6ilargi" path="res://assets/scenes/GameOver.tscn" id="5_8sknh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
 size = Vector2(20, 37)
@@ -903,5 +904,9 @@ shape = SubResource("RectangleShape2D_4wcc8")
 
 [node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
 
+[node name="GameOver" parent="." unique_id=1327431215 instance=ExtResource("5_8sknh")]
+visible = false
+
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
