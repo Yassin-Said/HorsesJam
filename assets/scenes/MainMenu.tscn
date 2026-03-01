@@ -8,7 +8,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/VBoxContainer/Play:modulate")
+tracks/0/path = NodePath("CanvasLayer/ColorRect/VBoxContainer/Play:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -23,7 +23,7 @@ resource_name = "buttons_in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/VBoxContainer/Play:modulate")
+tracks/0/path = NodePath("CanvasLayer/ColorRect/VBoxContainer/Play:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,12 +42,17 @@ _data = {
 [node name="MainMenu" type="Node2D" unique_id=809176291]
 script = ExtResource("1_t6dbj")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=312630778]
-offset_right = 1164.0
-offset_bottom = 672.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1942504608]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=312630778]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 
-[node name="Title" type="Label" parent="ColorRect" unique_id=205640786]
+[node name="Title" type="Label" parent="CanvasLayer/ColorRect" unique_id=205640786]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -61,45 +66,48 @@ theme_override_fonts/font = ExtResource("2_u804d")
 theme_override_font_sizes/font_size = 80
 text = "The unknown hero in the cavern"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1256963495]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ColorRect" unique_id=1256963495]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 49.0
-offset_top = -250.0
-offset_right = 349.0
-offset_bottom = -79.0
+offset_left = 209.0
+offset_top = -491.0
+offset_right = 509.0
+offset_bottom = -247.0
 grow_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="Play" type="Button" parent="ColorRect/VBoxContainer" unique_id=1154131124]
+[node name="Play" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer" unique_id=1154131124]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 focus_neighbor_top = NodePath("../Quit")
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_u804d")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 60
 text = "Play"
 
-[node name="Settings" type="Button" parent="ColorRect/VBoxContainer" unique_id=1593058471]
+[node name="Settings" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer" unique_id=1593058471]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 focus_neighbor_top = NodePath("../Play")
 focus_neighbor_bottom = NodePath("../Quit")
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_u804d")
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 60
 text = "Settings"
 
-[node name="Quit" type="Button" parent="ColorRect/VBoxContainer" unique_id=104969647]
+[node name="Quit" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer" unique_id=104969647]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Play")
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_u804d")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 60
 text = "Quit"
 
-[node name="Warning" type="Control" parent="ColorRect" unique_id=179727075]
+[node name="Warning" type="Control" parent="CanvasLayer/ColorRect" unique_id=179727075]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -114,7 +122,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/Warning" unique_id=2022420640]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ColorRect/Warning" unique_id=2022420640]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6431373)
 
-[node name="Label" type="Label" parent="ColorRect/Warning" unique_id=987007948]
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect/Warning" unique_id=987007948]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -146,15 +154,54 @@ theme_override_fonts/font = ExtResource("2_u804d")
 theme_override_font_sizes/font_size = 30
 text = "No, you have to use the keyboard"
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/ColorRect" unique_id=697336158]
+visible = false
+layout_mode = 0
+offset_left = 573.0
+offset_top = 529.0
+offset_right = 939.0
+offset_bottom = 777.0
+
+[node name="Level1" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer2" unique_id=1007455887]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Level3")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 60
+text = "Level1"
+
+[node name="Level2" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer2" unique_id=1604487193]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Level1")
+focus_neighbor_bottom = NodePath("../Level3")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 60
+text = "Level2"
+
+[node name="Level3" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer2" unique_id=365139516]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Level1")
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_u804d")
+theme_override_font_sizes/font_size = 60
+text = "level3"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1520993781]
 libraries/ = SubResource("AnimationLibrary_c1eu8")
 
-[connection signal="focus_entered" from="ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_entered"]
-[connection signal="focus_exited" from="ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_exited"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="focus_entered" from="ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_entered"]
-[connection signal="focus_exited" from="ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_exited"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="focus_entered" from="ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_entered"]
-[connection signal="focus_exited" from="ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_exited"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/ColorRect/VBoxContainer/Settings" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/ColorRect/VBoxContainer/Quit" to="." method="_on_button_focus_exited"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer2/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer2/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer2/Level3" to="." method="_on_level_3_pressed"]
