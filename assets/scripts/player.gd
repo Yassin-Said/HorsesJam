@@ -1,11 +1,11 @@
 extends CharacterBody2D
+
 #@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var slide_collision: CollisionShape2D = $SlideCollision
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_sprite: Sprite2D = $Sprite2D
-@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 const SPEED = 100.0
 const SPEED_IN_JUMP = 10.0
@@ -37,6 +37,8 @@ func jump_from_wall():
 	if holding:
 		cooldown_wall = 0.5
 		velocity = Vector2(100 * get_wall_normal().x, -300)
+		if holding == true:
+			reset_player_pos()
 		holding = false
 		jumped_from_wall = true
 		animation_player.play("wall_jump")
@@ -44,19 +46,30 @@ func jump_from_wall():
 func flip_collision(direction):
 	if direction > 0:
 		if fliped == true:
-			ray_cast_2d.rotate(deg_to_rad(180))
 			attack_area.apply_scale(Vector2(1,1)) 
+			collision_shape_2d.apply_scale(Vector2(1,1)) 
 			fliped = false
 	elif direction < 0:
 		if fliped == false:
-			ray_cast_2d.rotate(deg_to_rad(180))
-			attack_area.apply_scale(Vector2(-1,1))
+    	attack_area.apply_scale(Vector2(-1,1))
+			collision_shape_2d.apply_scale(Vector2(-1,1))
 			fliped = true
+
+func reset_player_pos():
+	if get_wall_normal().x < 0:
+		animation_player.position.x -= 3
+	else:
+		animation_player.position.x += 5
 
 func check_wall_collision(delta: float, direction: float):
 	if direction:
 		if is_on_wall() and not is_on_floor() and cooldown_wall <= 0:
 			if (is_on_wall() and get_wall_normal().x > 0 and direction < 0) or (is_on_wall() and get_wall_normal().x < 0 and direction > 0):
+				if not holding:
+					if get_wall_normal().x < 0:
+						animation_player.position.x += 3
+					else:
+						animation_player.position.x -= 5
 				holding = true
 				jumping = false
 			else:
@@ -69,8 +82,10 @@ func check_wall_collision(delta: float, direction: float):
 			animation_player.play("wall_slide")
 			flip_collision(get_wall_normal().x)
 			if get_wall_normal().x < 0:
+				#animation_player.position.x = ray_point.x
 				animation_player.flip_h = true
 			else:
+				#animation_player.position.x = ray_point.x
 				animation_player.flip_h = false
 		else:
 			land_on_wall = false
@@ -100,6 +115,8 @@ func check_direction(direction: float, delta: float):
 		#else:
 			#velocity.x = direction * SPEED_IN_JUMP
 	else:
+		if holding == true:
+			reset_player_pos()
 		holding = false
 		if not is_on_wall() and not jumped_from_wall:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -131,6 +148,8 @@ func clear_dash():
 		key_history[key] = 0
 
 func start_dash(dir: Vector2):
+	if holding == true:
+		reset_player_pos()
 	holding = false
 	jumped_from_wall = false
 	dash_direction = dir.normalized()
@@ -181,6 +200,8 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * delta * 0.6
 	else:
 		jumping= false
+		if holding == true:
+			reset_player_pos()
 		holding = false
 		jumped_from_wall = false
 	if Input.is_action_just_pressed("jump") and not is_attacking:
