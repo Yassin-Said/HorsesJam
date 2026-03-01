@@ -9,16 +9,15 @@ var is_low_time := false
 var penalty_tween: Tween
 
 @export var max_dashes: int = 3
-@export var dash_recharge_time: float = 2.0
+@export var dash_recharge_time: float = 1.5
 
 var current_dashes: int
-#var dash_cooldowns: Array[float] = []
 var recharge_timer: float = 0.0
 var recharge_queue: int = 0
 
 @onready var timer_label: RichTextLabel = $CanvasLayer/Control/TimerLabel
 @onready var penalty_label: RichTextLabel = $CanvasLayer/TimePenaltyLabel
-@onready var dash_container = $DashContainer
+@onready var dash_container: HBoxContainer = $CanvasLayer/DashContainer
 @onready var control: Control = $CanvasLayer/Control
 
 var original_position
@@ -36,10 +35,10 @@ func _ready():
 func _process(delta):
 	update_timer(delta)
 	update_dash_recharge(delta)
-	if Input.is_action_just_pressed("attack"):
-		apply_time_penalty()
-	if Input.is_action_just_pressed("jump"):
-		use_dash()
+	#if Input.is_action_just_pressed("attack"):
+		#apply_time_penalty()
+	#if Input.is_action_just_pressed("jump"):
+		#use_dash()
 
 func update_timer(delta):
 	if current_time <= 0:
