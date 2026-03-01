@@ -1,6 +1,7 @@
 extends CharacterBody2D
 #@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var collision_shape_2d: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var slide_collision: CollisionShape2D = $SlideCollision
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_sprite: Sprite2D = $Sprite2D
@@ -20,7 +21,7 @@ var sliding_speed = 0
 var holding = false
 var cooldown_wall : float = 0
 var is_attacking = false
-var key_history = {"move_left": 0, "move_right": 0, "jump": 0}
+var key_history = {"move_left": 0, "move_right": 0, "dash": 0}
 var dash_direction = Vector2.ZERO
 var current_key = ""
 var dash_speed = 500.0
@@ -44,12 +45,12 @@ func flip_collision(direction):
 	if direction > 0:
 		if fliped == true:
 			ray_cast_2d.rotate(deg_to_rad(180))
-			collision_shape_2d.apply_scale(Vector2(1,1)) 
+			attack_area.apply_scale(Vector2(1,1)) 
 			fliped = false
 	elif direction < 0:
 		if fliped == false:
 			ray_cast_2d.rotate(deg_to_rad(180))
-			collision_shape_2d.apply_scale(Vector2(-1,1))
+			attack_area.apply_scale(Vector2(-1,1))
 			fliped = true
 
 func check_wall_collision(delta: float, direction: float):
@@ -75,7 +76,7 @@ func check_wall_collision(delta: float, direction: float):
 			land_on_wall = false
 
 func check_fall():
-	if not is_on_floor() and not holding and not jumped_from_wall and not jumping:
+	if not is_on_floor() and not holding and not jumped_from_wall and not jumping and not is_attacking:
 		animation_player.play("fall_loop")
 
 func check_direction(direction: float, delta: float):
@@ -111,6 +112,8 @@ func check_slide(direction, delta):
 			sliding_speed = 200
 			sliding = true
 			animation_player.play("slide")
+			collision_shape_2d.disabled = true
+			slide_collision.disabled = false
 	if sliding_speed > 100:
 		var way = 1
 		if animation_player.flip_h == true:
@@ -120,6 +123,8 @@ func check_slide(direction, delta):
 	else:
 		sliding_speed = 0
 		sliding = false
+		collision_shape_2d.disabled = false
+		slide_collision.disabled = true
 
 func clear_dash():
 	for key in key_history:
@@ -153,13 +158,14 @@ func check_dash(delta):
 				reset_key = 0.2
 				key_history[key] += 1
 			if key_history[key] >= 2:
-				animation_player.play("dash")
 				current_dashing_key = key
 				if key == "move_left":
+					animation_player.play("dash")
 					start_dash(Vector2.LEFT)
 				if key == "move_right":
+					animation_player.play("dash")
 					start_dash(Vector2.RIGHT)
-				if key == "jump":
+				if key == "dash":
 					start_dash(Vector2.UP)
 				dashing = true
 				clear_dash()
@@ -218,4 +224,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		animation_player.play("fall_loop")
 	if animation_player.animation == "attack":
 		is_attacking = false
-		collision_shape_2d.disabled = true
+		attack_area.disabled = true
+	if animation_player.animation == "slide":
+		attack_area.disabled = false
+		slide_collision.disabled = true
