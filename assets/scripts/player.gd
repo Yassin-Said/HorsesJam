@@ -51,7 +51,7 @@ func flip_collision(direction):
 			fliped = false
 	elif direction < 0:
 		if fliped == false:
-    	attack_area.apply_scale(Vector2(-1,1))
+			attack_area.apply_scale(Vector2(-1,1))
 			collision_shape_2d.apply_scale(Vector2(-1,1))
 			fliped = true
 
