@@ -13,10 +13,9 @@ func _ready() -> void:
 	camera_prev_pos = camera_pos[0]
 	current_screen = Vector2i(0, 0)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var new_screen = get_screen_from_position($TestPlayer.global_position)
+	var new_screen = get_screen_from_position($Player.get_child(0).global_position)
 	
 	if new_screen != current_screen:
 		var previous_screen = current_screen

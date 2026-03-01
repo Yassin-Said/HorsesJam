@@ -210,17 +210,12 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		#body.take_damage()
 	pass # Replace with function body.
 
-
-
-
 func _on_animated_sprite_2d_animation_finished() -> void:
-	print("entered")
 	if animation_player.animation == "dash":
 		print("finished dash")
 	if animation_player.animation == "fall" or animation_player.animation == "jump" or \
 		 animation_player.animation == "wall_jump" or animation_player.animation == "dash":
 		animation_player.play("fall_loop")
 	if animation_player.animation == "attack":
-		print("finished")
 		is_attacking = false
 		collision_shape_2d.disabled = true

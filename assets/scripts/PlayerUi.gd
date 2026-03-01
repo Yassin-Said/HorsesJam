@@ -1,8 +1,5 @@
 extends Control
 
-# =========================
-# === TIMER SETTINGS ======
-# =========================
 @export var start_time: float = 60.0
 @export var low_time_threshold: float = 10.0
 @export var hit_time_penalty: float = 5.0
@@ -11,9 +8,6 @@ var current_time: float
 var is_low_time := false
 var penalty_tween: Tween
 
-# =========================
-# === DASH SETTINGS =======
-# =========================
 @export var max_dashes: int = 3
 @export var dash_recharge_time: float = 2.0
 
@@ -22,9 +16,6 @@ var current_dashes: int
 var recharge_timer: float = 0.0
 var recharge_queue: int = 0
 
-# =========================
-# === NODE REFERENCES =====
-# =========================
 @onready var timer_label: RichTextLabel = $CanvasLayer/Control/TimerLabel
 @onready var penalty_label: RichTextLabel = $CanvasLayer/TimePenaltyLabel
 @onready var dash_container = $DashContainer
@@ -38,11 +29,7 @@ func _ready():
 	original_position = control.position
 	current_time = start_time
 	current_dashes = max_dashes
-	
-	#dash_cooldowns.resize(max_dashes)
-	#for i in dash_cooldowns.size():
-		#dash_cooldowns[i] = 0.0
-	
+
 	update_timer_display()
 	update_dash_display()
 
@@ -88,41 +75,20 @@ func apply_time_penalty(amount: float = hit_time_penalty):
 	show_penalty(amount)
 
 func show_penalty(amount: float):
-	# Si un tween est déjà en cours, on le supprime
 	if penalty_tween and penalty_tween.is_running():
 		penalty_tween.kill()
 
-	# Réinitialisation propre du label
 	penalty_label.visible = true
 	penalty_label.modulate = Color.RED
 	penalty_label.modulate.a = 1.0
 	penalty_label.scale = Vector2.ONE * 1.4
 	penalty_label.text = "[tornado radius=10 freq=2]-%.1f s[/tornado]" % amount
-	
-	# Création du nouveau tween
+
 	penalty_tween = create_tween()
 	penalty_tween.tween_property(penalty_label, "scale", Vector2.ONE, 0.3)
 	penalty_tween.tween_interval(0.5)
 	penalty_tween.tween_property(penalty_label, "modulate:a", 0.0, 0.3)
 	penalty_tween.tween_callback(func(): penalty_label.visible = false)
-
-
-# =========================
-# === DASH LOGIC ==========
-# =========================
-
-#func use_dash():
-	#if current_dashes <= 0:
-		#return
-	#
-	#current_dashes -= 1
-	#
-	## Lance cooldown sur premier slot vide
-	#for i in range(max_dashes):
-		#if dash_cooldowns[i] <= 0:
-			#dash_cooldowns[i] = dash_recharge_time
-			#break
-	#update_dash_display()
 
 func use_dash():
 	if current_dashes <= 0:
@@ -131,22 +97,10 @@ func use_dash():
 	current_dashes -= 1
 	recharge_queue += 1
 
-	# Si aucun timer n'est actif, on en démarre un
 	if recharge_timer <= 0:
 		recharge_timer = dash_recharge_time
 
 	update_dash_display()
-
-#func update_dash_recharge(delta):
-	#for i in range(max_dashes):
-		#if dash_cooldowns[i] > 0:
-			#dash_cooldowns[i] -= delta
-#
-			#if dash_cooldowns[i] <= 0:
-				#current_dashes += 1
-				#dash_cooldowns[i] = 0
-	#
-	#update_dash_display()
 
 func update_dash_recharge(delta):
 	if recharge_queue <= 0:
