@@ -1,6 +1,7 @@
 extends Node
 
 var checkpoint_pos : Vector2 
+var player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

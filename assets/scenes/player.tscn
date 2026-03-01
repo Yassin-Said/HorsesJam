@@ -10,7 +10,7 @@
 size = Vector2(20, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14505"]
-size = Vector2(42, 22)
+size = Vector2(42, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8hh"]
 atlas = ExtResource("2_s027a")
@@ -857,8 +857,8 @@ size = Vector2(20, 37)
 [node name="Player" type="Node2D" unique_id=2067248331]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137258958]
-collision_layer = 25
-collision_mask = 25
+collision_layer = 89
+collision_mask = 89
 script = ExtResource("1_onrkg")
 
 [node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1013587023]
@@ -869,7 +869,7 @@ position = Vector2(-1, -2.5000005)
 shape = SubResource("RectangleShape2D_s027a")
 
 [node name="SlideCollision" type="CollisionShape2D" parent="CharacterBody2D" unique_id=723381156]
-position = Vector2(-2, 5)
+position = Vector2(-2, 8.5)
 shape = SubResource("RectangleShape2D_14505")
 disabled = true
 
