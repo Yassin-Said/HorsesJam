@@ -88,7 +88,6 @@ func show_penalty(amount: float):
 	penalty_tween.tween_callback(func(): penalty_label.visible = false)
 
 func use_dash():
-	print("in use dash")
 	if current_dashes <= 0:
 		return
 

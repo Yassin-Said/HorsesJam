@@ -39,6 +39,7 @@ var is_alive = true
 func _ready() -> void:
 	base_sprite_x = animation_player.position.x
 	animation_player.play("idle")
+	Global.player = self
 
 func wall_jump():
 	var wall_dir = get_wall_normal().x
@@ -47,7 +48,7 @@ func wall_jump():
 	velocity.x = wall_dir * 100
 	velocity.y = -300
 	animation_player.play("wall_jump")
-	cooldown_wall = 0.2
+	cooldown_wall = 0.1
 
 func flip_collision(direction):
 	if direction > 0:
@@ -148,7 +149,6 @@ func clear_dash():
 		key_history[key] = 0
 
 func start_dash(dir: Vector2):
-	print("used")
 	jumped_from_wall = false
 	#if dir == Vector2.UP:
 		#dash_timer = dash_duration_up

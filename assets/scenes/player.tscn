@@ -9,7 +9,7 @@
 size = Vector2(20, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14505"]
-size = Vector2(42, 22)
+size = Vector2(42, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8hh"]
 atlas = ExtResource("2_s027a")
@@ -856,8 +856,8 @@ size = Vector2(20, 37)
 [node name="Player" type="Node2D" unique_id=2067248331]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137258958]
-collision_layer = 25
-collision_mask = 25
+collision_layer = 89
+collision_mask = 89
 script = ExtResource("1_onrkg")
 
 [node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1013587023]
@@ -868,15 +868,13 @@ position = Vector2(-1, -2.5000005)
 shape = SubResource("RectangleShape2D_s027a")
 
 [node name="SlideCollision" type="CollisionShape2D" parent="CharacterBody2D" unique_id=723381156]
-position = Vector2(-2, 5)
+position = Vector2(-2, 8.5)
 shape = SubResource("RectangleShape2D_14505")
 disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=672851028]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_00pic")
-animation = &"dash_up"
-frame = 9
 animation = &"hit"
 frame = 5
 frame_progress = 1.0
@@ -895,7 +893,6 @@ position = Vector2(33, -3)
 shape = SubResource("RectangleShape2D_ike5y")
 disabled = true
 
-[node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
 [node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=518359165]
 collision_layer = 2
 collision_mask = 2
@@ -903,6 +900,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=406979618]
 position = Vector2(-1, -2.5)
 shape = SubResource("RectangleShape2D_4wcc8")
+
+[node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
