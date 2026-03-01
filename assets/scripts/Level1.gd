@@ -38,8 +38,6 @@ func get_screen_from_position(pos: Vector2) -> Vector2i:
 	)
 
 func _on_player_screen_changed(old_screen: Vector2i, new_screen: Vector2i) -> int:
-	print("Changement d'écran :", old_screen, "→", new_screen)
-
 	match new_screen:
 		Vector2i(0,0):
 			return 0
@@ -54,3 +52,6 @@ func _on_player_screen_changed(old_screen: Vector2i, new_screen: Vector2i) -> in
 		Vector2i(2, -1):
 			return 4
 	return 0
+
+func _on_area_2d_body_entered(body: Node2D, source: Area2D) -> void:
+	Global.checkpoint_pos = source.get_children()[0].global_position
