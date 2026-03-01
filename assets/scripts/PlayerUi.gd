@@ -44,7 +44,6 @@ func _process(delta):
 func update_timer(delta):
 	if current_time <= 0:
 		current_time = 0
-		print("gars na pu le temps")
 		return
 	
 	current_time -= delta
@@ -71,7 +70,6 @@ func apply_time_penalty(amount: float = hit_time_penalty):
 	if current_time < 0:
 		current_time = 0
 		update_timer_display()
-		print("gars na pu le temps parce que ou la touche un zafaire te dangereux")
 	show_penalty(amount)
 
 func show_penalty(amount: float):

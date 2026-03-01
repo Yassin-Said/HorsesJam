@@ -6,9 +6,10 @@ extends CharacterBody2D
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_sprite: Sprite2D = $Sprite2D
+@onready var player: Node2D = $".."
 
 const SPEED = 100.0
-const SPEED_IN_JUMP = 10.0
+const SPEED_IN_JUMP = 70.0
 const JUMP_VELOCITY = -200.0
 
 var fliped = false
@@ -25,10 +26,11 @@ var key_history = {"move_left": 0, "move_right": 0, "dash": 0}
 var dash_direction = Vector2.ZERO
 var current_key = ""
 var dash_speed = 500.0
-var dash_duration = 0.05
+var dash_duration = 0.15
 var dash_timer = 0.0
 var reset_key = 0
 var dashing = false
+var is_alive = true
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -57,7 +59,7 @@ func flip_collision(direction):
 
 func reset_player_pos():
 	if get_wall_normal().x < 0:
-		animation_player.position.x -= 3
+		animation_player.position.x -= 2
 	else:
 		animation_player.position.x += 5
 
@@ -67,20 +69,21 @@ func check_wall_collision(delta: float, direction: float):
 			if (is_on_wall() and get_wall_normal().x > 0 and direction < 0) or (is_on_wall() and get_wall_normal().x < 0 and direction > 0):
 				if not holding:
 					if get_wall_normal().x < 0:
-						animation_player.position.x += 3
+						animation_player.position.x += 2
 					else:
 						animation_player.position.x -= 5
-				holding = true
-				jumping = false
+					holding = true
+					jumping = false
 			else:
 				return
 			jumped_from_wall = false
 			if not land_on_wall:
 				velocity.y = 0
 				land_on_wall = true
+				
 			velocity.y += 200 * delta
 			animation_player.play("wall_slide")
-			flip_collision(get_wall_normal().x)
+			#flip_collision(get_wall_normal().x)
 			if get_wall_normal().x < 0:
 				#animation_player.position.x = ray_point.x
 				animation_player.flip_h = true
@@ -111,9 +114,10 @@ func check_direction(direction: float, delta: float):
 			if not jumping:
 				animation_player.play("walk")
 		if not jumped_from_wall:
-			velocity.x = direction * SPEED
-		#else:
-			#velocity.x = direction * SPEED_IN_JUMP
+			if is_on_floor():
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = direction * SPEED_IN_JUMP
 	else:
 		if holding == true:
 			reset_player_pos()
@@ -149,19 +153,25 @@ func clear_dash():
 
 func start_dash(dir: Vector2):
 	if holding == true:
+		velocity.x = 0
 		reset_player_pos()
 	holding = false
 	jumped_from_wall = false
-	dash_direction = dir.normalized()
+	#if dir == Vector2.UP:
+		#dash_timer = dash_duration_up
+	#else:
 	dash_timer = dash_duration
+	dash_direction = dir.normalized()
 	dashing = true
 
 func apply_dash(delta):
 	if dashing:
 		dash_timer -= delta
 		
-		if current_dashing_key == "jump":
-			velocity = dash_direction * 250
+		if current_dashing_key == "dash":
+			velocity = dash_direction * 500
+			if dash_timer < 0.01:
+				velocity = dash_direction * 100
 		else:
 			velocity = dash_direction * dash_speed
 		if dash_timer <= 0:
@@ -173,6 +183,13 @@ func check_dash(delta):
 		clear_dash()
 	if not is_on_floor() and not holding and not is_attacking:
 		for key in key_history:
+			if Input.is_action_just_pressed("slide"):
+				if Input.is_action_pressed("move_left"):
+					animation_player.play("dash")
+					start_dash(Vector2.LEFT)
+				elif Input.is_action_pressed("move_right"):
+					animation_player.play("dash")
+					start_dash(Vector2.RIGHT)
 			if Input.is_action_just_pressed(key):
 				reset_key = 0.2
 				key_history[key] += 1
@@ -211,14 +228,15 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("jump")
 		elif not is_on_floor() and is_on_wall():
 			jump_from_wall()
-	attack()
-	check_wall_collision(delta, direction)
-	check_direction(direction, delta)
-	check_fall()
-	check_slide(direction, delta)
-	check_dash(delta)
-	apply_dash(delta)
-	move_and_slide()
+	if is_alive == true:
+		attack()
+		check_wall_collision(delta, direction)
+		check_direction(direction, delta)
+		check_fall()
+		check_slide(direction, delta)
+		check_dash(delta)
+		apply_dash(delta)
+		move_and_slide()
 
 func attack():
 	if Input.is_action_just_pressed("attack") and not is_attacking:
@@ -238,8 +256,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animation_player.animation == "dash":
-		print("finished dash")
+	#if animation_player.animation == "dash":
 	if animation_player.animation == "fall" or animation_player.animation == "jump" or \
 		 animation_player.animation == "wall_jump" or animation_player.animation == "dash":
 		animation_player.play("fall_loop")
@@ -249,3 +266,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if animation_player.animation == "slide":
 		attack_area.disabled = false
 		slide_collision.disabled = true
+	if animation_player.animation == "death":
+		global_position = Global.checkpoint_pos
+		is_alive = true
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	is_alive = false
+	animation_player.play("death")

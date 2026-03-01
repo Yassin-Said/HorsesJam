@@ -786,11 +786,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ike5y"]
 size = Vector2(32, 38)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wcc8"]
+size = Vector2(20, 37)
+
 [node name="Player" type="Node2D" unique_id=2067248331]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137258958]
-collision_layer = 9
-collision_mask = 9
+collision_layer = 25
+collision_mask = 25
 script = ExtResource("1_onrkg")
 
 [node name="RayCast2D" type="RayCast2D" parent="CharacterBody2D" unique_id=1013587023]
@@ -808,8 +811,9 @@ disabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=672851028]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_00pic")
-animation = &"slide"
-frame = 7
+animation = &"hit"
+frame = 5
+frame_progress = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1335801446]
 visible = false
@@ -825,4 +829,13 @@ position = Vector2(33, -3)
 shape = SubResource("RectangleShape2D_ike5y")
 disabled = true
 
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=518359165]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=406979618]
+position = Vector2(-1, -2.5)
+shape = SubResource("RectangleShape2D_4wcc8")
+
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]

@@ -96,7 +96,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_muoxg")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -152,13 +152,14 @@ script = ExtResource("1_tc147")
 sprite_frames = SubResource("SpriteFrames_kqlkn")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.5108203
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=236250384]
 position = Vector2(3, 0.5)
 shape = SubResource("RectangleShape2D_tc147")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1227111314]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=785467843]
@@ -167,6 +168,8 @@ shape = SubResource("RectangleShape2D_nbovy")
 debug_color = Color(1, 1, 0, 0.41960785)
 
 [node name="AttackAreaRight" type="Area2D" parent="." unique_id=1189232877]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaRight" unique_id=30769194]
 position = Vector2(47, -0.5)
@@ -174,8 +177,16 @@ shape = SubResource("RectangleShape2D_mmjv6")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="AttackAreaLeft" type="Area2D" parent="." unique_id=1977768044]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackAreaLeft" unique_id=1085743512]
 position = Vector2(-41, 0)
 shape = SubResource("RectangleShape2D_mmjv6")
 debug_color = Color(1, 0, 0, 0.41960785)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="AttackAreaRight" to="." method="_on_attack_area_right_body_entered"]
+[connection signal="body_exited" from="AttackAreaRight" to="." method="_on_attack_area_right_body_exited"]
+[connection signal="body_entered" from="AttackAreaLeft" to="." method="_on_attack_area_left_body_entered"]
+[connection signal="body_exited" from="AttackAreaLeft" to="." method="_on_attack_area_left_body_exited"]
