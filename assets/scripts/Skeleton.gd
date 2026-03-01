@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var speed = 100
+var speed = 10
 var gravity = 10
 var detectPlayer = false
 var player: Node2D = null
@@ -42,17 +42,17 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_body_entered(body):
-	if body.name == "TestPlayer":
+	if body.name == "CharacterBody2D":
 		detectPlayer = true
 		player = body
 
 func _on_body_exited(body):
-	if body == player:
+	if body.name == "CharacterBody2D":
 		detectPlayer = false
 		player = null
 
 func canAttackPlayer():
-	var distance = global_position.distance_to($"../TestPlayer".global_position)
+	var distance = global_position.distance_to($"../Player".get_child(0).global_position)
 
 	print(distance)
 	if distance < 200:

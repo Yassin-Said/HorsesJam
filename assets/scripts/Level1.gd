@@ -1,6 +1,6 @@
 extends Node2D
 
-var camera_pos: Array[Vector2] = [Vector2(960, 540), Vector2(960.0, 183), Vector2(2880, 540), Vector2(1600, -500.0), Vector2(4720, 540), Vector2(4300, -500.0)]
+var camera_pos: Array[Vector2] = [Vector2(320, 180), Vector2(960, 180), Vector2(534, -166), Vector2(1574, 180), Vector2(1433, -180)]
 var camera_next_pos
 var camera_prev_pos
 var current_screen: Vector2i
@@ -29,6 +29,9 @@ func _process(delta: float) -> void:
 func get_screen_from_position(pos: Vector2) -> Vector2i:
 	var screen_size = get_viewport_rect().size
 
+	screen_size.x = screen_size.x / 3
+	screen_size.y = screen_size.y / 3
+
 	return Vector2i(
 		floor(pos.x / screen_size.x),
 		floor(pos.y / screen_size.y)
@@ -40,16 +43,14 @@ func _on_player_screen_changed(old_screen: Vector2i, new_screen: Vector2i) -> in
 	match new_screen:
 		Vector2i(0,0):
 			return 0
-		Vector2i(0,1):
-			return 1
 		Vector2i(1, 0):
-			return 2
+			return 1
 		Vector2i(0, -1):
-			return 3
+			return 2
 		Vector2i(1, -1):
-			return 3
+			return 2
 		Vector2i(2, 0):
-			return 4
+			return 3
 		Vector2i(2, -1):
-			return 5
+			return 4
 	return 0
