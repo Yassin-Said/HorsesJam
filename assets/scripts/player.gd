@@ -148,6 +148,7 @@ func clear_dash():
 		key_history[key] = 0
 
 func start_dash(dir: Vector2):
+	print("used")
 	jumped_from_wall = false
 	#if dir == Vector2.UP:
 		#dash_timer = dash_duration_up
@@ -155,6 +156,8 @@ func start_dash(dir: Vector2):
 	dash_timer = dash_duration
 	dash_direction = dir.normalized()
 	dashing = true
+	clear_dash()
+	player_ui.use_dash()
 
 func apply_dash(delta):
 	if dashing:
@@ -173,33 +176,29 @@ func check_dash(delta):
 	reset_key -= delta
 	if reset_key <= 0:
 		clear_dash()
-	if not is_on_floor() and not is_attacking:
+	if not is_on_floor() and not is_attacking and player_ui.current_dashes > 0:
+		if Input.is_action_just_pressed("slide"):
+			if Input.is_action_pressed("move_left"):
+				animation_player.play("dash")
+				start_dash(Vector2.LEFT)
+			elif Input.is_action_pressed("move_right"):
+				animation_player.play("dash")
+				start_dash(Vector2.RIGHT)
 		for key in key_history:
-			if player_ui.current_dashes > 0:
-        if Input.is_action_just_pressed("slide"):
-          if Input.is_action_pressed("move_left"):
-            animation_player.play("dash")
-            start_dash(Vector2.LEFT)
-          elif Input.is_action_pressed("move_right"):
-            animation_player.play("dash")
-            start_dash(Vector2.RIGHT)
-        if Input.is_action_just_pressed(key):
-          reset_key = 0.2
-          key_history[key] += 1
-        if key_history[key] >= 2:
-          current_dashing_key = key
-          if key == "move_left":
-            animation_player.play("dash")
-            start_dash(Vector2.LEFT)
-          if key == "move_right":
-            animation_player.play("dash")
-            start_dash(Vector2.RIGHT)
-          if key == "dash":
-            animation_player.play("dash_up")
-            start_dash(Vector2.UP)
-          player_ui.use_dash()
-          dashing = true
-          clear_dash()
+			if Input.is_action_just_pressed(key):
+				reset_key = 0.2
+				key_history[key] += 1
+			if key_history[key] >= 2:
+				current_dashing_key = key
+				if key == "move_left":
+					animation_player.play("dash")
+					start_dash(Vector2.LEFT)
+				elif key == "move_right":
+					animation_player.play("dash")
+					start_dash(Vector2.RIGHT)
+				elif key == "dash":
+					animation_player.play("dash_up")
+					start_dash(Vector2.UP)
 	else:
 		clear_dash()
 		
@@ -224,15 +223,15 @@ func _physics_process(delta: float) -> void:
 			double_jump = true
 			velocity.y = JUMP_VELOCITY
 			animation_player.play("jump")
-  if is_alive == true:
-    attack()
-    check_wall_slide(direction)
-    check_direction(direction)
-    check_fall()
-    check_slide(delta)
-    check_dash(delta)
-    apply_dash(delta)
-    move_and_slide()
+	if is_alive == true:
+		attack()
+		check_wall_slide(direction)
+		check_direction(direction)
+		check_fall()
+		check_slide(delta)
+		check_dash(delta)
+		apply_dash(delta)
+		move_and_slide()
 
 func attack():
 	if Input.is_action_just_pressed("attack") and not is_attacking:
