@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var player_sprite: Sprite2D = $Sprite2D
 @onready var player_ui: Control = $"../PlayerUi"
 @onready var player: Node2D = $".."
+@onready var area_2d: Area2D = $Area2D
+@onready var game_over: Control = $"../GameOver"
 
 const SPEED = 100.0
 const SPEED_IN_JUMP = 70.0
@@ -35,6 +37,7 @@ var base_sprite_x = 0.0
 var dash_duration = 0.15
 var dash_timer = 0.0
 var is_alive = true
+var is_game_over = false
 
 func _ready() -> void:
 	base_sprite_x = animation_player.position.x
@@ -203,6 +206,8 @@ func check_dash(delta):
 		clear_dash()
 		
 func _physics_process(delta: float) -> void:
+	if is_game_over:
+		return
 	cooldown_wall -= delta
 	var direction := Input.get_axis("move_left", "move_right")
 	
@@ -264,3 +269,19 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	is_alive = false
 	animation_player.play("death")
+	game_over.visible = true
+	game_over.play_animation()
+	
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	is_alive = false
+	animation_player.play("death")
+	game_over.visible = true
+	game_over.play_animation()
+	
+
+func show_game_over():
+	is_game_over = true
+	player_ui.visible = false
+	game_over.visible = true
+	game_over.play_animation()
