@@ -57,26 +57,25 @@ text = "-x seconde"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DashContainer" type="HBoxContainer" parent="." unique_id=1719378571]
-layout_mode = 0
+[node name="DashContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1719378571]
 offset_left = 20.0
 offset_top = 783.0
 offset_right = 520.0
 offset_bottom = 1013.0
 
-[node name="TextureRect" type="TextureRect" parent="DashContainer" unique_id=320550991]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=320550991]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_pxrjx")
 stretch_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="DashContainer" unique_id=1841190198]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=1841190198]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_pxrjx")
 stretch_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="DashContainer" unique_id=77593967]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=77593967]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_pxrjx")
