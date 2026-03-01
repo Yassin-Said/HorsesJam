@@ -1,71 +1,51 @@
 [gd_scene format=3 uid="uid://b1v7wov0cqdak"]
 
 [ext_resource type="Script" uid="uid://bwjpcwiopbdie" path="res://assets/scripts/Splash.gd" id="1_qeunq"]
-[ext_resource type="Texture2D" uid="uid://ch4hulgomph20" path="res://icon.svg" id="2_ijgyd"]
-
-[sub_resource type="Animation" id="Animation_r1pui"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Background/TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_3eabt"]
-resource_name = "splash"
-length = 4.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Background/TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ylp70"]
-_data = {
-&"RESET": SubResource("Animation_r1pui"),
-&"splash": SubResource("Animation_3eabt")
-}
+[ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="2_3eabt"]
+[ext_resource type="VideoStream" uid="uid://ln3llghlhjx3" path="res://assets/video/splash.ogv" id="2_r1pui"]
+[ext_resource type="AudioStream" uid="uid://b5otr2d0t1emw" path="res://assets/sfx/Splash.ogg" id="3_ijgyd"]
 
 [node name="Splash" type="Node2D" unique_id=750394828]
 script = ExtResource("1_qeunq")
 
 [node name="Background" type="ColorRect" parent="." unique_id=165295244]
-offset_right = 1154.0
-offset_bottom = 651.0
+offset_right = 1920.0
+offset_bottom = 1078.0
 color = Color(0, 0, 0, 1)
 
-[node name="TextureRect" type="TextureRect" parent="Background" unique_id=925546140]
-modulate = Color(1, 1, 1, 0)
+[node name="Label" type="Label" parent="Background" unique_id=463802096]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchor_bottom = 1.0
+offset_left = -362.0
+offset_top = -219.0
+offset_right = 363.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3eabt")
+theme_override_font_sizes/font_size = 42
+text = "February 27th 2026 to March 2nd 2026"
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Background" unique_id=637245602]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = 0.33673468
+anchor_right = 0.675
+anchor_bottom = 0.6632653
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_ijgyd")
-stretch_mode = 5
+stream = ExtResource("2_r1pui")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=658178558]
-libraries/ = SubResource("AnimationLibrary_ylp70")
+[node name="SplashSound" type="AudioStreamPlayer" parent="." unique_id=1045392160]
+stream = ExtResource("3_ijgyd")
+volume_db = -5.0
+
+[connection signal="finished" from="SplashSound" to="." method="_on_splash_sound_finished"]
