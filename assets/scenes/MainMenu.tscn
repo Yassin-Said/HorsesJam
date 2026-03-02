@@ -553,21 +553,27 @@ flip_h = true
 
 [node name="NavigationSound" type="AudioStreamPlayer" parent="." unique_id=1664543486]
 stream = ExtResource("6_nory3")
+volume_db = -10.0
 
 [node name="AcceptSound" type="AudioStreamPlayer" parent="." unique_id=1804432258]
 stream = ExtResource("7_kj6rs")
+volume_db = -10.0
 
 [node name="CancelSound" type="AudioStreamPlayer" parent="." unique_id=762161865]
 stream = ExtResource("8_7metd")
+volume_db = -10.0
 
 [node name="WarningSound" type="AudioStreamPlayer" parent="." unique_id=891083048]
 stream = ExtResource("9_an4tj")
+volume_db = -10.0
 
 [node name="LevelStartSound" type="AudioStreamPlayer" parent="." unique_id=114257045]
 stream = ExtResource("10_ka3ux")
+volume_db = -10.0
 
 [node name="AmbienceBGM" type="AudioStreamPlayer" parent="." unique_id=1904560017]
 stream = ExtResource("11_jrfyc")
+volume_db = -10.0
 
 [connection signal="focus_entered" from="CanvasLayer/ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_entered"]
 [connection signal="focus_exited" from="CanvasLayer/ColorRect/VBoxContainer/Play" to="." method="_on_button_focus_exited"]

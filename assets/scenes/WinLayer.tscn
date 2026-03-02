@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bmr1itv4cwg26"]
+
+[sub_resource type="GDScript" id="GDScript_m1eyf"]
+script/source = "extends Control
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func play_end():
+	print(\"animation\")
+	animation_player.play(\"go_dark\")
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	get_tree().change_scene_to_file(\"res://assets/scenes/MainMenu.tscn\")
+"
+
+[sub_resource type="Animation" id="Animation_onmp7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wj5p7"]
+resource_name = "go_dark"
+length = 2.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3p1m"]
+_data = {
+&"RESET": SubResource("Animation_onmp7"),
+&"go_dark": SubResource("Animation_wj5p7")
+}
+
+[node name="WinLayer" type="Control" unique_id=1151421508]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_m1eyf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=426388172]
+libraries/ = SubResource("AnimationLibrary_j3p1m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=777519114]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1845963883]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

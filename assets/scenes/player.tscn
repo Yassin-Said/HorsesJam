@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cfy7ys6ilargi" path="res://assets/scenes/GameOver.tscn" id="5_8sknh"]
 [ext_resource type="PackedScene" uid="uid://b0j73o3nxsbn" path="res://assets/scenes/PauseMenu.tscn" id="6_tc801"]
 [ext_resource type="AudioStream" uid="uid://l5jkqongk250" path="res://assets/sfx/dash_sound.ogg" id="7_o5c66"]
+[ext_resource type="PackedScene" uid="uid://bmr1itv4cwg26" path="res://assets/scenes/WinLayer.tscn" id="7_tc801"]
 [ext_resource type="AudioStream" uid="uid://bxo2ix7sivka1" path="res://assets/sfx/walk_sound.ogg" id="8_tc801"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
@@ -928,6 +929,8 @@ grow_vertical = 1
 
 [node name="GameOver" parent="." unique_id=1327431215 instance=ExtResource("5_8sknh")]
 visible = false
+
+[node name="WinLayer" parent="." unique_id=1151421508 instance=ExtResource("7_tc801")]
 
 [node name="Dash" type="AudioStreamPlayer" parent="." unique_id=959572367]
 stream = ExtResource("7_o5c66")

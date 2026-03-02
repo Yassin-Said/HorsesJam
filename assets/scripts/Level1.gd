@@ -82,8 +82,8 @@ func check_door3():
 				door_3_sprite.region_rect.position.x -= 16
 				door3_opened = true
 				door3_key.visible = false
-				print("victory")
-			else:
+				Global.player.win_layer.play_end()
+			elif not door3_opened:
 				fade_label(door3_label)
 
 func check_door2():
