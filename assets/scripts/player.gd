@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-#@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var slide_collision: CollisionShape2D = $SlideCollision
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
@@ -38,8 +37,11 @@ var dash_duration = 0.15
 var dash_timer = 0.0
 var is_alive = true
 var is_game_over = false
+var has_get_hit = false
 
 func _ready() -> void:
+	game_over.connect("on_restart_pressed", on_restart_received)
+	game_over.connect("on_quit_pressed", on_quit_received)
 	base_sprite_x = animation_player.position.x
 	animation_player.play("idle")
 	Global.player = self
@@ -104,10 +106,11 @@ func check_direction(direction: float):
 	if direction:
 		if not jumped_from_wall and not sliding and not wall_sliding:
 			flip_collision(direction)
-			if direction < 0 :
-				animation_player.flip_h = true
-			else:
-				animation_player.flip_h = false
+			if not is_attacking:
+				if direction < 0:
+					animation_player.flip_h = true
+				else:
+					animation_player.flip_h = false
 		if sliding == true or dashing == true or is_attacking == true:
 			return
 		if direction < 0 and is_on_floor():
@@ -204,9 +207,19 @@ func check_dash(delta):
 					start_dash(Vector2.UP)
 	else:
 		clear_dash()
-		
+
 func _physics_process(delta: float) -> void:
+	if player_ui.current_time <= 0 and not is_game_over:
+		print("current time = ", player_ui.current_time)
+		is_game_over = true
+		animation_player.play("death")
+
 	if is_game_over:
+		return
+	
+	if has_get_hit:
+		collision_shape_2d.disabled = true
+		move_and_slide()
 		return
 	cooldown_wall -= delta
 	var direction := Input.get_axis("move_left", "move_right")
@@ -248,8 +261,18 @@ func attack():
 		animation_player.play("attack")
 		attack_area.disabled = false
 
+func hit_stun(skeleton_direction):
+	if skeleton_direction == 1:
+		velocity.x += 50
+	elif skeleton_direction == -1:
+		velocity.x -= 50
+	animation_player.play("hit")
+	player_ui.apply_time_penalty()
+
 func _on_attack_area_body_entered(body: Node2D) -> void:
-	print("you hit something")
+	body.life -= 1
+	if body.life <= 0:
+		body.queue_free()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	#if animation_player.animation == "dash":
@@ -262,26 +285,37 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if animation_player.animation == "slide":
 		attack_area.disabled = false
 		slide_collision.disabled = true
+	if animation_player.animation == "hit":
+		has_get_hit = false
 	if animation_player.animation == "death":
-		global_position = Global.checkpoint_pos
-		is_alive = true
+		if is_game_over == false:
+			global_position = Global.checkpoint_pos
+			is_alive = true
+			player_ui.stop_timer = false
+		else:
+			show_game_over()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("on body entered")
 	is_alive = false
 	animation_player.play("death")
-	game_over.visible = true
-	game_over.play_animation()
-	
+	player_ui.stop_timer = true
+	player_ui.apply_time_penalty()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("on area entered")
 	is_alive = false
 	animation_player.play("death")
-	game_over.visible = true
-	game_over.play_animation()
-	
+	player_ui.stop_timer = true
+	player_ui.apply_time_penalty()
 
 func show_game_over():
-	is_game_over = true
-	player_ui.visible = false
+	player_ui.hide_show(false)
 	game_over.visible = true
-	game_over.play_animation()
+	game_over.show_menu()
+
+func on_restart_received():
+	get_tree().change_scene_to_file("res://assets/scenes/Level1.tscn")
+
+func on_quit_received():
+	get_tree().change_scene_to_file("res://assets/scenes/MainMenu.tscn")

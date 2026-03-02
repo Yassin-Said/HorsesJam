@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://hl5ywdaifms2" path="res://assets/scenes/player.tscn" id="3_o4lud"]
 [ext_resource type="Texture2D" uid="uid://cmlwkhv3cjbi3" path="res://assets/textures/e_key.png" id="5_tdiiv"]
 [ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="6_raflw"]
+[ext_resource type="PackedScene" uid="uid://chyfp7qo0n5ev" path="res://assets/scenes/Saw.tscn" id="7_exj7u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o4lud"]
 texture = ExtResource("1_qrfei")
@@ -382,7 +383,7 @@ tile_map_data = PackedByteArray("AAAAABQAAAADAAIAAAAAABMAAAADAAIAAAAAABIAAAADAAI
 tile_set = SubResource("TileSet_cp7y5")
 
 [node name="Player" parent="." unique_id=2067248331 instance=ExtResource("3_o4lud")]
-position = Vector2(45, 332)
+position = Vector2(45, 335)
 
 [node name="Skeleton" parent="." unique_id=1979638554 instance=ExtResource("3_cp7y5")]
 position = Vector2(1334, -251)
@@ -479,6 +480,10 @@ visible = false
 position = Vector2(758.625, -164.25)
 scale = Vector2(0.041991975, 0.04101564)
 texture = ExtResource("5_tdiiv")
+
+[node name="SawUp" parent="." unique_id=1130752476 instance=ExtResource("7_exj7u")]
+position = Vector2(327, -32)
+platform_width_tiles = 19
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered" flags=18]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_body_entered" flags=18]

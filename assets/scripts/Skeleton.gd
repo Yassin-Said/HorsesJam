@@ -9,7 +9,12 @@ var canAttack = true
 var is_attacking = false
 var target_in_area := false
 
+var life = 4
+var dead = false
+
 @onready var attack_area_right: Area2D = $AttackAreaRight
+@onready var atack_collision_right: CollisionShape2D = $HitAreaRight2/CollisionShape2D
+@onready var atack_collision_left: CollisionShape2D = $HitAreaLeft2/CollisionShape2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,7 +52,13 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	pass
+	if $AnimatedSprite2D.animation == "attack" and $AnimatedSprite2D.frame >= 6:
+		if $AnimatedSprite2D.flip_h == false:
+			atack_collision_right.disabled = false
+		elif $AnimatedSprite2D.flip_h == true:
+			atack_collision_left.disabled = false
+	if life <= 0:
+		dead = true
 
 func _on_body_entered(body):
 	if body.name == "CharacterBody2D":
@@ -72,6 +83,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "attack":
 		$AnimatedSprite2D.animation = "idle"
 		is_attacking = false
+		atack_collision_right.disabled = true
+		atack_collision_left.disabled = true
 
 func attack_player():
 	if target_in_area:
@@ -95,3 +108,13 @@ func _on_attack_area_right_body_exited(body: Node2D) -> void:
 
 func _on_attack_area_left_body_exited(body: Node2D) -> void:
 	target_in_area = false
+
+
+func _on_hit_area_right_2_body_entered(body: Node2D) -> void:
+	body.has_get_hit = true
+	body.hit_stun(1)
+
+
+func _on_hit_area_left_2_body_entered(body: Node2D) -> void:
+	body.has_get_hit = true
+	body.hit_stun(-1)
