@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var speed : float = 100.0
+@export var speed : float = 200.0
 @export var platform_width_tiles : int = 10
 @export var tile_size : int = 16
 @onready var saw_sprite: Sprite2D = $SawSprite
