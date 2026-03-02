@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b1v7wov0cqdak"]
+
+[ext_resource type="Script" uid="uid://bwjpcwiopbdie" path="res://assets/scripts/Splash.gd" id="1_qeunq"]
+[ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="2_3eabt"]
+[ext_resource type="VideoStream" uid="uid://ln3llghlhjx3" path="res://assets/video/splash.ogv" id="2_r1pui"]
+[ext_resource type="AudioStream" uid="uid://b5otr2d0t1emw" path="res://assets/sfx/Splash.ogg" id="3_ijgyd"]
+
+[node name="Splash" type="Node2D" unique_id=750394828]
+script = ExtResource("1_qeunq")
+
+[node name="Background" type="ColorRect" parent="." unique_id=165295244]
+offset_right = 1920.0
+offset_bottom = 1078.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Background" unique_id=463802096]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -362.0
+offset_top = -219.0
+offset_right = 363.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3eabt")
+theme_override_font_sizes/font_size = 42
+text = "February 27th 2026 to March 2nd 2026"
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Background" unique_id=637245602]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = 0.33673468
+anchor_right = 0.675
+anchor_bottom = 0.6632653
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_r1pui")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SplashSound" type="AudioStreamPlayer" parent="." unique_id=1045392160]
+stream = ExtResource("3_ijgyd")
+volume_db = -25.0
+
+[connection signal="finished" from="SplashSound" to="." method="_on_splash_sound_finished"]
