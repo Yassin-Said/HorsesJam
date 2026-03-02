@@ -46,6 +46,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="SplashSound" type="AudioStreamPlayer" parent="." unique_id=1045392160]
 stream = ExtResource("3_ijgyd")
-volume_db = -5.0
+volume_db = -25.0
 
 [connection signal="finished" from="SplashSound" to="." method="_on_splash_sound_finished"]

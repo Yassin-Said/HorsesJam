@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var key_sprite: Sprite2D = $Key
 @onready var walking_sfx: AudioStreamPlayer = $"../Walking"
 @onready var dash_sfx: AudioStreamPlayer = $"../Dash"
+@onready var win_layer: Control = $"../WinLayer"
 
 const SPEED = 100.0
 const SPEED_IN_JUMP = 70.0

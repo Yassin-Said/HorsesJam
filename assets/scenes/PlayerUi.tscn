@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dvqdnm4gy0xe6" path="res://assets/scripts/PlayerUi.gd" id="1_tk7m3"]
 [ext_resource type="FontFile" uid="uid://dcfu5mtdb33dc" path="res://assets/font/Pixellari.ttf" id="2_d1603"]
-[ext_resource type="Texture2D" uid="uid://ch4hulgomph20" path="res://icon.svg" id="2_pxrjx"]
+[ext_resource type="Texture2D" uid="uid://h8owe2dpmmmb" path="res://assets/textures/faither.png" id="3_pxrjx"]
 
 [node name="PlayerUi" type="Control" unique_id=24420542]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 3.0
-offset_bottom = 3.0
+offset_top = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tk7m3")
@@ -73,23 +73,23 @@ vertical_alignment = 1
 [node name="DashContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1719378571]
 offset_left = 44.0
 offset_top = 56.0
-offset_right = 509.0
-offset_bottom = 211.0
+offset_right = 341.0
+offset_bottom = 184.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=320550991]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_pxrjx")
+texture = ExtResource("3_pxrjx")
 stretch_mode = 3
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=1841190198]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_pxrjx")
+texture = ExtResource("3_pxrjx")
 stretch_mode = 3
 
 [node name="TextureRect3" type="TextureRect" parent="CanvasLayer/DashContainer" unique_id=77593967]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_pxrjx")
+texture = ExtResource("3_pxrjx")
 stretch_mode = 3
