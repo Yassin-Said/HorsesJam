@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var player: Node2D = $".."
 @onready var area_2d: Area2D = $Area2D
 @onready var game_over: Control = $"../GameOver"
+@onready var pause_menu: Control = $"../PauseMenu"
 @onready var key_sprite: Sprite2D = $Key
 @onready var walking_sfx: AudioStreamPlayer = $"../Walking"
 @onready var dash_sfx: AudioStreamPlayer = $"../Dash"
@@ -41,10 +42,14 @@ var dash_timer = 0.0
 var is_alive = true
 var is_game_over = false
 var has_get_hit = false
+var paused = false
 
 func _ready() -> void:
 	game_over.connect("on_restart_pressed", on_restart_received)
 	game_over.connect("on_quit_pressed", on_quit_received)
+	pause_menu.connect("on_resume_pressed", on_resume_received)
+	pause_menu.connect("on_quit_pause_pressed", on_quit_pause_received)
+	
 	base_sprite_x = animation_player.position.x
 	animation_player.play("idle")
 	Global.player = self
@@ -216,10 +221,26 @@ func _physics_process(delta: float) -> void:
 		print("current time = ", player_ui.current_time)
 		is_game_over = true
 		animation_player.play("death")
-
+	
 	if is_game_over:
 		return
 	
+	if Input.is_action_just_pressed("pause"):
+		if not paused:
+			pause_menu.hide_show(true)
+			pause_menu.get_focus()
+			paused = true
+			player_ui.stop_timer = true
+			player_ui.hide_show(false)
+			animation_player.pause()
+		elif paused:
+			pause_menu.hide_show(false)
+			paused = false
+			player_ui.stop_timer = false
+			player_ui.hide_show(true)
+			animation_player.play()
+	if paused == true:
+		return
 	if has_get_hit:
 		collision_shape_2d.disabled = true
 		move_and_slide()
@@ -337,4 +358,16 @@ func on_restart_received():
 	get_tree().change_scene_to_file("res://assets/scenes/Level1.tscn")
 
 func on_quit_received():
+	get_tree().change_scene_to_file("res://assets/scenes/MainMenu.tscn")
+
+func on_resume_received():
+	print("resume")
+	pause_menu.hide_show(false)
+	paused = false
+	player_ui.stop_timer = false
+	player_ui.hide_show(true)
+	animation_player.play()
+
+func on_quit_pause_received():
+	print("quitter")
 	get_tree().change_scene_to_file("res://assets/scenes/MainMenu.tscn")

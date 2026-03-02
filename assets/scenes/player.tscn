@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c157ltlh8bub6" path="res://assets/textures/Dungeon Tile Set.png" id="4_0gfpk"]
 [ext_resource type="PackedScene" uid="uid://ct52a16340h63" path="res://assets/scenes/PlayerUi.tscn" id="4_4wcc8"]
 [ext_resource type="PackedScene" uid="uid://cfy7ys6ilargi" path="res://assets/scenes/GameOver.tscn" id="5_8sknh"]
+[ext_resource type="PackedScene" uid="uid://b0j73o3nxsbn" path="res://assets/scenes/PauseMenu.tscn" id="6_tc801"]
 [ext_resource type="AudioStream" uid="uid://l5jkqongk250" path="res://assets/sfx/dash_sound.ogg" id="7_o5c66"]
 [ext_resource type="AudioStream" uid="uid://bxo2ix7sivka1" path="res://assets/sfx/walk_sound.ogg" id="8_tc801"]
 
@@ -917,6 +918,13 @@ region_rect = Rect2(176, 144, 16, 16)
 
 [node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
 start_time = 360.0
+
+[node name="PauseMenu" parent="." unique_id=85036644 instance=ExtResource("6_tc801")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="GameOver" parent="." unique_id=1327431215 instance=ExtResource("5_8sknh")]
 visible = false
