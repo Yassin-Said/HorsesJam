@@ -1,14 +1,24 @@
 extends Node2D
+
 @onready var door3_label: Label = $Door3/Label
 @onready var door3_key: Sprite2D = $Door3/Sprite2D
 @onready var door2_label: Label = $Door2/Label
 @onready var door2_key: Sprite2D = $Door2/Sprite2D
 @onready var door1_key: Sprite2D = $Door1/Sprite2D
 @onready var door_2: CollisionShape2D = $Door2/CollisionShape2D
+@onready var door_1: CollisionShape2D = $Door1/CollisionShape2D
+@onready var chest_sprite: Sprite2D = $Chest/ChestSprite
+@onready var chest_key: Sprite2D = $Chest/Sprite2D
+@onready var chest_label: Label = $Chest/Label
+@onready var door_sprite: Sprite2D = $Door2/DoorSprite
+@onready var door_3_sprite: Sprite2D = $Door3/Door3Sprite
 
+var chest_opened = false
+var at_chest = false
 var at_door3 = false
 var at_door2 = false
 var at_door1 = false
+var door3_opened = false
 var door2_opened = false
 var camera_pos: Array[Vector2] = [Vector2(320, 180), Vector2(960, 180), Vector2(534, -166), Vector2(1574, 180), Vector2(1433, -180)]
 var camera_next_pos
@@ -25,6 +35,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	check_chest()
+	check_door3()
 	check_door2()
 	check_door1()
 	var new_screen = get_screen_from_position($Player.get_child(0).global_position)
@@ -53,15 +65,42 @@ func fade_label(label: Label) -> void:
 	tween.parallel().tween_property(copy, "modulate:a", 0.0, 0.6)
 	tween.tween_callback(copy.queue_free)
 
+func check_chest():
+	if at_chest == true:
+		if Input.is_action_just_pressed("interact"):
+			if chest_opened == false:
+				chest_opened = true
+				Global.player.show_key()
+				chest_sprite.region_rect.position.x += 16
+			else:
+				fade_label(chest_label)
+
+func check_door3():
+	if at_door3 == true:
+		if Input.is_action_just_pressed("interact"):
+			if chest_opened and not door3_opened:
+				door_3_sprite.region_rect.position.x -= 16
+				door3_opened = true
+				door3_key.visible = false
+				print("victory")
+			else:
+				fade_label(door3_label)
+
 func check_door2():
 	if at_door2 == true:
 		if Input.is_action_just_pressed("interact"):
 			if not door2_opened:
 				fade_label(door2_label)
+			else:
+				Global.player.global_position = door_1.global_position
+
 func check_door1():
 	if at_door1 == true:
 		if Input.is_action_just_pressed("interact"):
 			Global.player.global_position = door_2.global_position
+			if not door2_opened:
+				door_sprite.region_rect.position.x -= 16
+				door2_opened = true
 
 func get_screen_from_position(pos: Vector2) -> Vector2i:
 	var screen_size = get_viewport_rect().size
@@ -110,9 +149,18 @@ func _on_door_1_body_exited(body: Node2D) -> void:
 	at_door1 = false
 
 func _on_door_3_body_entered(body: Node2D) -> void:
-	door3_key.visible = true
-	at_door3 = true
+	if not door3_opened:
+		door3_key.visible = true
+		at_door3 = true
 
 func _on_door_3_body_exited(body: Node2D) -> void:
 	door3_key.visible = false
 	at_door3 = false
+
+func _on_chest_body_entered(body: Node2D) -> void:
+	chest_key.visible = true
+	at_chest = true
+
+func _on_chest_body_exited(body: Node2D) -> void:
+	chest_key.visible = false
+	at_chest = false

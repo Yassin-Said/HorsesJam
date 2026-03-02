@@ -9,6 +9,9 @@ extends CharacterBody2D
 @onready var player: Node2D = $".."
 @onready var area_2d: Area2D = $Area2D
 @onready var game_over: Control = $"../GameOver"
+@onready var key_sprite: Sprite2D = $Key
+@onready var walking_sfx: AudioStreamPlayer = $"../Walking"
+@onready var dash_sfx: AudioStreamPlayer = $"../Dash"
 
 const SPEED = 100.0
 const SPEED_IN_JUMP = 70.0
@@ -77,7 +80,6 @@ func check_wall_slide(direction):
 	wall_sliding = false
 
 	if is_on_wall() and not is_on_floor() and velocity.y > 0:
-
 		var wall_dir = get_wall_normal().x
 
 		if direction == -wall_dir:
@@ -164,6 +166,7 @@ func start_dash(dir: Vector2):
 	dashing = true
 	clear_dash()
 	player_ui.use_dash()
+	dash_sfx.play()
 
 func apply_dash(delta):
 	if dashing:
@@ -241,6 +244,10 @@ func _physics_process(delta: float) -> void:
 			double_jump = true
 			velocity.y = JUMP_VELOCITY
 			animation_player.play("jump")
+	if animation_player.animation == "walk" and not walking_sfx.playing:
+		walking_sfx.play()
+	elif animation_player.animation != "walk":
+		walking_sfx.stop()
 	if is_alive == true:
 		attack()
 		check_wall_slide(direction)
@@ -313,7 +320,19 @@ func show_game_over():
 	player_ui.hide_show(false)
 	game_over.visible = true
 	game_over.show_menu()
+	
+func show_key():
+	key_sprite.visible = true
+	key_sprite.modulate.a = 1.0
 
+	var tween := create_tween()
+
+	tween.tween_property(key_sprite, "position:y", key_sprite.position.y - 20, 2)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(key_sprite, "modulate:a", 0.0, 0.6)
+	tween.tween_callback(key_sprite.queue_free)
+	
 func on_restart_received():
 	get_tree().change_scene_to_file("res://assets/scenes/Level1.tscn")
 

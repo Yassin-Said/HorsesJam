@@ -513,6 +513,7 @@ focus_neighbor_bottom = NodePath("../Level3")
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_u804d")
 theme_override_font_sizes/font_size = 60
+disabled = true
 text = "Level 2"
 
 [node name="Level3" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer2" unique_id=365139516]
@@ -522,6 +523,7 @@ focus_neighbor_bottom = NodePath("../Level1")
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_u804d")
 theme_override_font_sizes/font_size = 60
+disabled = true
 text = "Level 3"
 
 [node name="FadeRect" type="ColorRect" parent="CanvasLayer/ColorRect" unique_id=630174228]
