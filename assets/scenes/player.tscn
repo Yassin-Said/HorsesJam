@@ -891,6 +891,8 @@ hframes = 23
 vframes = 15
 
 [node name="AttackArea" type="Area2D" parent="CharacterBody2D" unique_id=687078680]
+collision_layer = 128
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/AttackArea" unique_id=1964558785]
 position = Vector2(33, -3)
@@ -914,6 +916,7 @@ region_enabled = true
 region_rect = Rect2(176, 144, 16, 16)
 
 [node name="PlayerUi" parent="." unique_id=24420542 instance=ExtResource("4_4wcc8")]
+start_time = 360.0
 
 [node name="GameOver" parent="." unique_id=1327431215 instance=ExtResource("5_8sknh")]
 visible = false
@@ -926,5 +929,6 @@ stream = ExtResource("8_tc801")
 volume_db = -10.0
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="CharacterBody2D" method="_on_attack_area_body_entered"]
 [connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]

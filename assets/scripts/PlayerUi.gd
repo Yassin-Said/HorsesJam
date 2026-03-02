@@ -20,8 +20,12 @@ var recharge_queue: int = 0
 @onready var dash_container: HBoxContainer = $CanvasLayer/DashContainer
 @onready var control: Control = $CanvasLayer/Control
 
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
+
 var original_position
 var shake_intensity = 1
+
+var stop_timer = false
 
 
 func _ready():
@@ -41,6 +45,8 @@ func _process(delta):
 		#use_dash()
 
 func update_timer(delta):
+	if stop_timer == true and current_time > 0:
+		return
 	if current_time <= 0:
 		current_time = 0
 		return
@@ -68,6 +74,8 @@ func apply_time_penalty(amount: float = hit_time_penalty):
 	current_time -= amount
 	if current_time < 0:
 		current_time = 0
+		update_timer_display()
+	if stop_timer == true:
 		update_timer_display()
 	show_penalty(amount)
 
@@ -124,3 +132,6 @@ func update_dash_display():
 			icon.modulate = Color(1,1,1,1)
 		else:
 			icon.modulate = Color(0.3,0.3,0.3,1)
+
+func hide_show(value : bool):
+	canvas_layer.visible = value
